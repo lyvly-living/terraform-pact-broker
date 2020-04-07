@@ -1,1 +1,4 @@
 terraform*
+.gitsecret/keys/random_seed
+!*.secret
+pact.tfvars
