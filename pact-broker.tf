@@ -41,6 +41,7 @@ resource "aws_instance" "server" {
   instance_type   = "t2.small"
   count           = 1
   security_groups = [aws_security_group.pact-broker.name]
+  key_name        = "PactKeyPair"
 
   associate_public_ip_address = "true"
 
@@ -52,6 +53,8 @@ resource "aws_instance" "server" {
     host = coalesce(self.public_ip, self.private_ip)
     type = "ssh"
     user = "ubuntu"
+    private_key = file("${path.module}/ssh/id_rsa")
+    timeout = "1m"
   }
 
   provisioner "file" {
@@ -65,7 +68,7 @@ resource "aws_instance" "server" {
   }
 
   provisioner "file" {
-    source      = template_file.rack.filename
+    source      = "${path.module}/templates/rack.conf"
     destination = "/tmp/rack.conf"
   }
 
@@ -99,7 +102,7 @@ resource "aws_instance" "server" {
   provisioner "remote-exec" {
     scripts = [
       "${path.module}/scripts/install.sh",
-      template_file.server.filename,
+      "${path.module}/scripts/server.sh",
       "${path.module}/scripts/service.sh",
     ]
   }
@@ -109,26 +112,3 @@ resource "aws_eip" "lb" {
   instance = aws_instance.server[0].id
   vpc      = true
 }
-
-# this cannot be used for file provisioning yet, soon hopefully
-resource "template_file" "rack" {
-  template = file("${path.module}/templates/rack.conf")
-  vars = {
-    db_host     = var.db_host
-    db_name     = var.db_name
-    db_username = var.db_username
-    db_password = var.db_password
-  }
-}
-
-# this cannot be used for file provisioning yet, soon hopefully
-resource "template_file" "server" {
-  template = file("${path.module}/scripts/server.sh")
-  vars = {
-    db_host     = var.db_host
-    db_name     = var.db_name
-    db_username = var.db_username
-    db_password = var.db_password
-  }
-}
-
