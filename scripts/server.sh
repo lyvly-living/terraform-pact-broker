@@ -10,7 +10,8 @@ sudo chmod 755 /usr/local/bin/pact-broker.sh
 
 cd /usr/local/pact_broker
 sudo -H -u pact bash -c "bundle config set path 'vendor/bundle'"
-sudo -H -u pact bash -c 'bundle --without development test'
+sudo -H -u pact bash -c "bundle config set without 'development test'"
+sudo -H -u pact bash -c 'bundle'
 
 sudo mkdir /etc/pact_broker
 sudo mv /tmp/postgres_vars /etc/pact_broker/config
