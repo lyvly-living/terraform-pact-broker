@@ -11,7 +11,7 @@ variable "key_path" {
 }
 
 variable "aws_region" {
-  default = "ap-southeast-2"
+  default     = "ap-southeast-2"
   description = "The region of AWS, for AMI lookups."
 }
 
@@ -30,3 +30,4 @@ variable "db_host" {
 
 variable "db_name" {
 }
+
