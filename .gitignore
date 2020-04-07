@@ -2,3 +2,5 @@ terraform*
 .gitsecret/keys/random_seed
 !*.secret
 pact.tfvars
+id_rsa
+id_rsa.pub
