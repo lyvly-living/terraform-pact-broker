@@ -83,8 +83,8 @@ resource "aws_instance" "server" {
   }
 
   provisioner "file" {
-    source      = "${path.module}/templates/nginx-upstart.conf"
-    destination = "/tmp/nginx-upstart.conf"
+    source      = "${path.module}/templates/nginx.service"
+    destination = "/tmp/nginx.service"
   }
 
   # use this until files can be templated
