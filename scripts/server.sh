@@ -2,7 +2,7 @@
 set -e
 
 sudo cp /tmp/nginx.conf /etc/nginx/sites-available/default
-sudo cp /tmp/rack.conf /usr/local/pact_broker/config.ru
+sudo cp /tmp/config.ru /usr/local/pact_broker/config.ru
 sudo cp /tmp/Gemfile /usr/local/pact_broker/Gemfile
 sudo cp /tmp/pact-broker.sh /usr/local/bin/
 

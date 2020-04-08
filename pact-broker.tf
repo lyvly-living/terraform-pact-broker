@@ -68,8 +68,8 @@ resource "aws_instance" "server" {
   }
 
   provisioner "file" {
-    source      = "${path.module}/templates/rack.conf"
-    destination = "/tmp/rack.conf"
+    source      = "${path.module}/templates/config.ru"
+    destination = "/tmp/config.ru"
   }
 
   provisioner "file" {
