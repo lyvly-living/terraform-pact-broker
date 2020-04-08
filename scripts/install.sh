@@ -2,16 +2,14 @@
 set -e
 
 # Updating and Upgrading dependencies
-echo "Installing ruby"
+echo "Installing vim, screen and git -- The basics."
 sudo apt-get update -y -qq > /dev/null
 sudo apt-get upgrade -y -qq > /dev/null
 sudo apt-get install -y vim screen git
 
-echo "Installing ruby"
-
-sudo apt-add-repository -y ppa:brightbox/ruby-ng
+echo "Installing ruby and nginx"
 sudo apt-get update
-# TODO use ruby version
+
 sudo apt-get install -y build-essential zlib1g-dev libssl-dev libreadline6-dev libyaml-dev libpq-dev ruby ruby-dev
 sudo apt-get install -y nginx apache2-utils
 
