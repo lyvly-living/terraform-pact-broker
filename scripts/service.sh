@@ -1,8 +1,8 @@
 #!/bin/bash
 set -e
 
-sudo cp /tmp/upstart.conf /etc/init/pact-broker.conf
-sudo cp /tmp/nginx-upstart.conf /etc/init/nginx.conf
+sudo cp /tmp/upstart.conf /etc/nginx/pact-broker.conf
+sudo cp /tmp/nginx-upstart.conf /etc/nginx/nginx.conf
 
 echo "Starting Pact Broker"
 sudo start pact-broker
