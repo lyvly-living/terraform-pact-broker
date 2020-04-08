@@ -17,5 +17,3 @@ sudo mkdir /etc/pact_broker
 sudo mv /tmp/postgres_vars /etc/pact_broker/config
 sudo chmod 755 /etc/pact_broker/config
 . /etc/pact_broker/config
-bundle exec sequel -m ~/pact_broker/db/migrations/ $DB_URL
-
