@@ -15,3 +15,4 @@ sudo systemctl start pact-broker
 echo "Starting nginx"
 sudo systemctl enable nginx
 sudo systemctl start nginx
+sudo systemctl reload nginx
