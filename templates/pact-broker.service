@@ -1,0 +1,10 @@
+[Unit]
+Description=Job that runs pact-broker
+
+[Service]
+Type=simple
+User=pact
+ExecStart=/bin/sh -ec "exec pact-broker.sh >>/var/log/pact-broker.log 2>&1"
+
+[Install]
+WantedBy=multi-user.target

@@ -78,8 +78,8 @@ resource "aws_instance" "server" {
   }
 
   provisioner "file" {
-    source      = "${path.module}/templates/upstart.conf"
-    destination = "/tmp/upstart.conf"
+    source      = "${path.module}/templates/pact-broker.service"
+    destination = "/tmp/pact-broker.service"
   }
 
   provisioner "file" {
