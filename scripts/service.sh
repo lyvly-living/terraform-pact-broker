@@ -6,6 +6,7 @@ sudo cp /tmp/nginx-upstart.conf /etc/nginx/nginx.conf
 
 sudo touch /var/log/pact-broker.log
 sudo chmod 755 /var/log/pact-broker.log
+sudo chown pact /var/log/pact-broker.log
 
 echo "Starting Pact Broker"
 sudo systemctl enable pact-broker
