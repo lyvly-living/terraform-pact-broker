@@ -37,6 +37,7 @@ resource "aws_security_group" "pact-broker" {
 }
 
 resource "aws_route53_record" "www" {
+  allow_overwrite = true
   zone_id = var.aws_hosted_zone_id
   name    = "pact.dev.lyvly.uk"
   type    = "A"
@@ -82,6 +83,11 @@ resource "aws_instance" "server" {
   }
 
   provisioner "file" {
+    source      = "${path.module}/templates/basic_auth.rb"
+    destination = "/tmp/basic_auth.rb"
+  }
+
+  provisioner "file" {
     source      = "${path.module}/templates/Gemfile"
     destination = "/tmp/Gemfile"
   }
@@ -100,11 +106,15 @@ resource "aws_instance" "server" {
   # use this until files can be templated
   provisioner "remote-exec" {
     inline = [
-      "echo 'export DB_HOST=${var.db_host}' >> /tmp/postgres_vars",
-      "echo 'export DB_NAME=${var.db_name}' >> /tmp/postgres_vars",
-      "echo 'export DB_USERNAME=${var.db_username}' >> /tmp/postgres_vars",
-      "echo 'export DB_PASSWORD=${var.db_password}' >> /tmp/postgres_vars",
-      "echo 'export DB_URL=postgres://$DB_USERNAME:$DB_PASSWORD@$DB_HOST/$DB_NAME' >> /tmp/postgres_vars",
+      "echo 'export DB_HOST=${var.db_host}' >> /tmp/vars",
+      "echo 'export DB_NAME=${var.db_name}' >> /tmp/vars",
+      "echo 'export DB_USERNAME=${var.db_username}' >> /tmp/vars",
+      "echo 'export DB_PASSWORD=${var.db_password}' >> /tmp/vars",
+      "echo 'export DB_URL=postgres://$DB_USERNAME:$DB_PASSWORD@$DB_HOST/$DB_NAME' >> /tmp/vars",
+      "echo 'export PACT_BROKER_BASIC_AUTH_USERNAME=${var.pact_broker_write_username}' >> /tmp/vars",
+      "echo 'export PACT_BROKER_BASIC_AUTH_PASSWORD=\"${var.pact_broker_write_password}\"' >> /tmp/vars",
+      "echo 'export PACT_BROKER_BASIC_AUTH_READ_ONLY_USERNAME=${var.pact_broker_username}' >> /tmp/vars",
+      "echo 'export PACT_BROKER_BASIC_AUTH_READ_ONLY_PASSWORD=\"${var.pact_broker_password}\"' >> /tmp/vars",
     ]
   }
 

@@ -31,6 +31,22 @@ variable "db_host" {
 variable "db_name" {
 }
 
+variable "pact_broker_username" {
+
+}
+
+variable "pact_broker_password" {
+  
+}
+
+variable "pact_broker_write_username" {
+  
+}
+
+variable "pact_broker_write_password" {
+  
+}
+
 variable "aws_hosted_zone_id" {
   
 }

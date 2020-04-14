@@ -3,6 +3,7 @@ require 'logger'
 require 'sequel'
 require 'pg' # for postgres
 require 'pact_broker'
+require_relative 'basic_auth'
 
 ENV['RACK_ENV'] ||= 'production'
 
@@ -29,5 +30,16 @@ app = PactBroker::App.new do | config |
   # config.auto_migrate_db = true
   config.database_connection = Sequel.connect(DATABASE_CREDENTIALS.merge(:logger => PactBroker::DB::LogQuietener.new(config.logger)))
 end
+
+basic_auth_username = ENV['PACT_BROKER_BASIC_AUTH_USERNAME']
+basic_auth_password = ENV['PACT_BROKER_BASIC_AUTH_PASSWORD']
+basic_auth_read_only_username = ENV['PACT_BROKER_BASIC_AUTH_READ_ONLY_USERNAME']
+basic_auth_read_only_password = ENV['PACT_BROKER_BASIC_AUTH_READ_ONLY_PASSWORD']
+
+use BasicAuth,
+  basic_auth_username,
+  basic_auth_password,
+  basic_auth_read_only_username,
+  basic_auth_read_only_password
 
 run app
