@@ -36,6 +36,15 @@ resource "aws_security_group" "pact-broker" {
   }
 }
 
+resource "aws_route53_record" "www" {
+  zone_id = var.aws_hosted_zone_id
+  name    = "pact.dev.lyvly.uk"
+  type    = "A"
+  ttl     = "300"
+  records = ["${aws_instance.server[0].public_ip}"]
+}
+
+
 resource "aws_instance" "server" {
   ami             = var.aws_ami
   instance_type   = "t2.small"

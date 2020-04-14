@@ -31,3 +31,6 @@ variable "db_host" {
 variable "db_name" {
 }
 
+variable "aws_hosted_zone_id" {
+  
+}
